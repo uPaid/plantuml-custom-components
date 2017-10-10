@@ -1,0 +1,74 @@
+@startuml
+
+skinparam ___PLACEHOLDER___ #000000 ' placeholder to make this a valid UML
+
+!ifdef SINGLE_SERVER_CHART
+    ' colors
+        !define _SERVER_COLOR #FFCDD2
+        !define _APPLICATION_COLOR #F8BBD0
+        !define _REQUIREMENTS_COLOR #E1BEE7
+        !define _REQUIREMENT_COLOR #D1C4E9
+        !define _DATABASE_COLOR #FFECB3
+        !define _EXTERNAL_SERVICE_COLOR #B2DFDB
+        !define _CONNECTION_COLOR #FFCCBC
+        !define _DOMAIN_COLOR #D7CCC8
+        !define _CONNECTION_COLOR #DCEDC8
+        !define _DIRECTORIES_COLOR #D7CCC8
+        !define _DIRECTORY_COLOR #CFD8DC
+
+    ' components
+        !define server(name) folder [name] _SERVER_COLOR
+        !define application(name) folder [name] _APPLICATION_COLOR
+        !define requirements rectangle "requirements" _REQUIREMENTS_COLOR
+        !define requirement(name, version, url) requirement([[url name]], version)
+        !define requirement(name, version) rectangle "name:version" _REQUIREMENT_COLOR
+        !define requirement(name) rectangle "name" _REQUIREMENT_COLOR
+        !define directories rectangle "directories" _DIRECTORIES_COLOR
+        !define directory(name) rectangle "name" _DIRECTORY_COLOR
+        !define database(name, url) database([[url name]])
+        !define database(name) database [name] _DATABASE_COLOR
+        !define external(name) rectangle [name] _EXTERNAL_SERVICE_COLOR
+        !define domain(name) rectangle [name] _DOMAIN_COLOR
+        !define connection(name) (name) _CONNECTION_COLOR
+!endif
+
+!ifdef MULTIPLE_SERVERS_CHART
+    ' global colors
+        skinparam backgroundColor #F5F5F5
+        skinparam arrowColor #43A047
+        skinparam packageBorderColor #aaaaaa
+
+    ' colors
+        !define _ENVIRONMENT_COLOR #CFD8DC
+        !define _EXTERNAL_ENVIRONMENT_COLOR #BBDEFB
+        !define _EXTERNAL_DOMAIN_COLOR #D1C4E9
+        !define _SERVER_COLOR #FFCCBC
+
+    ' components
+        !define environment(name) frame name _ENVIRONMENT_COLOR
+        !define external_environment(name) cloud name _EXTERNAL_ENVIRONMENT_COLOR
+        !definelong external_domain(anchor_name, __name)
+            folder anchor_name _EXTERNAL_DOMAIN_COLOR [
+                domain: __name
+            ]
+        !enddefinelong
+        !definelong external_domain(anchor_name, __name, __port)
+            folder anchor_name _EXTERNAL_DOMAIN_COLOR [
+                domain: __name
+                port: __port
+            ]
+        !enddefinelong
+        !definelong server(name, address, hosts_name)
+            package name _SERVER_COLOR [
+                hosts_name
+                address
+            ]
+        !enddefinelong
+        !definelong server(name, address)
+            package name _SERVER_COLOR [
+                address
+            ]
+        !enddefinelong
+!endif
+
+@enduml
